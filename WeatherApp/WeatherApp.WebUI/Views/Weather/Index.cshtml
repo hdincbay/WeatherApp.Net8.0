@@ -1,0 +1,41 @@
+﻿@model WeatherData
+
+<div class="container">
+    @using (Html.BeginForm("Index", "Weather", FormMethod.Get))
+    {
+        <div class="form-group">
+            <label for="lat">Enlem:</label>
+            <input type="text" id="lat" name="lat" required class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="lon">Boylam:</label>
+            <input type="text" id="lon" name="lon" required class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="apiKey">API Key giriniz:</label>
+            <input type="text" id="apiKey" name="apiKey" required class="form-control">
+        </div>
+        <button class="btn btn-outline-primary my-3" type="submit">Hava Durumunu Getir</button>
+    }
+</div>
+
+@if (Model != null)
+{
+    <table class="table table-striped text-center my-3">
+        <thead>
+            <tr>
+                <th scope="col">Sıcaklık</th>
+                <th scope="col">Nem</th>
+                <th scope="col">Hissedilen Sıcaklık</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@(string.Concat(Math.Round(Model.Main.Temp - 273, 2), "°C"))</td>
+                <td>@string.Concat("%", Model.Main.Humidity).Trim()</td>
+                <td>@(string.Concat(Math.Round(Model.Main.Feels_Like - 273, 2), "°C"))</td>
+            </tr>
+        </tbody>
+    </table>
+    <!-- Diğer hava durumu bilgilerini buraya ekleyin -->
+}
